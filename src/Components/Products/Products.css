@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .item {
+    display: flex;
+    gap: 50px;
+  }
+  
+  .item img {
+    height: 200px;
+    width: 200px;
+  }
+
+  .item p {
+    max-width: 500px; /* Adjusting max-width for text */
+  }
+
+  .item-details{    
+  display: flex;
+  max-width: 500px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  }

@@ -1,0 +1,41 @@
+.loader-container {
+    width: 100%;
+  }
+  
+  .shimmer-row {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width: 100%;
+    padding:20px;
+    box-sizing: border-box;
+    margin-bottom: 50px; 
+  }
+
+  .shimmer {
+    color: grey;
+    display:inline-block;
+    -webkit-mask:linear-gradient(-60deg,#000 30%,#0005,#000 70%) right/300% 100%;
+    background-repeat: no-repeat;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .shimmer-child {
+    background: linear-gradient(to right, #eeeeee 4%, #dddddd 8%, #eeeeee 12%);
+    background-size: 1000px 100%;
+    position: relative;
+    overflow: hidden;
+    animation: shimmer 1s infinite linear;
+  }
+  
+  
+  .shimmer-cell{
+    background-color: #f0f0f0;
+  }
+
+  
+  @keyframes shimmer {
+    100% {-webkit-mask-position:left}
+  }
+
+  

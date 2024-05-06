@@ -1,0 +1,16 @@
+.App {
+  display: flex;
+  color: #585151;
+  gap: 20%;
+   background: linear-gradient(to bottom, #FFC0CB, #88b188, #87CEEB);
+}
+
+.app-details{
+display: block;
+}
+
+h1{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
