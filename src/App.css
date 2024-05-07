@@ -3,6 +3,10 @@
   color: #585151;
   gap: 20%;
    background: linear-gradient(to bottom, #FFC0CB, #88b188, #87CEEB);
+   @media only screen and (max-width: 768px) 
+   {
+    display: block;
+   }
 }
 
 .app-details{
@@ -13,4 +17,9 @@ h1{
   display: flex;
   justify-content:center;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+    padding: 20px;
+    font-size: 20px;
+  }
 }
