@@ -18,7 +18,7 @@ const ShimmerLoader = ({ loading, shimmerRows, content, children }: any) => {
 
 
             shimmerRowsArray.push(
-                <div key={rowIndex} className="shimmer-row">
+                <div key={rowIndex} className="shimmer-row" data-testid="shimmer-row">
                     {shimmerCellsArray}
                 </div>
             );
@@ -44,7 +44,7 @@ const ShimmerLoader = ({ loading, shimmerRows, content, children }: any) => {
     };
 
     return (
-        <div className="loader-container">
+        <div className="loader-container" data-testid="loader-shimmer">
             {loading ? renderShimmer() : content}
         </div>
     );

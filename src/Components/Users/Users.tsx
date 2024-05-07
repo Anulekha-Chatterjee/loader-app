@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import ShimmerLoader from '../Common/Loader';
 import "./Users.css";
 import { useDataFetching } from '../../Hooks/useDataFetching';

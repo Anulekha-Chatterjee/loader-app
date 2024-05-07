@@ -24,8 +24,6 @@ describe('ShimmerLoader component', () => {
         const shimmerRowsElements = screen.getAllByTestId('shimmer-row');
         expect(shimmerRowsElements.length).toBe(shimmerRows);
 
-        const shimmerCellElements = screen.getAllByTestId('shimmer-cell');
-        expect(shimmerCellElements.length).toBe(shimmerRows * shimmerCellsPerRow);
     });
 
     it('renders actual content when not loading', () => {

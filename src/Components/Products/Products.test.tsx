@@ -1,31 +1,39 @@
 import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, waitFor } from '@testing-library/react';
 import Products from './Products';
+import { useDataFetching } from '../../Hooks/useDataFetching';
 
-const mockFetch = jest.fn(() =>
-    Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ products: [{ id: 1, title: 'Product 1', description: 'Description 1', images: ['image1.jpg'] }] }),
-    })
-);
+jest.mock('../../Hooks/useDataFetching');
 
-(global as any).fetch = mockFetch;
+describe('Products Component', () => {
+    test('renders loading state correctly', async () => {
+        // Mock the useDataFetching hook to return loading state
+        (useDataFetching as jest.Mock).mockReturnValue({ loading: true, data: null });
 
-describe('Products component', () => {
-    beforeEach(() => {
-        mockFetch.mockClear();
+        const { getAllByTestId } = render(<Products />);
+        const shimmerLoader = getAllByTestId('shimmer-row')[0];
+
+        // Check if the shimmer loader is rendered
+        expect(shimmerLoader).toBeInTheDocument();
     });
 
-    xit('renders content correctly after loading', async () => {
-        const { rerender } = render(<Products />);
+    test('renders data correctly', async () => {
+        const mockData = {
+            products: [
+                { id: 1, title: 'Product 1', description: 'Description 1', images: ['image1.jpg'] },
+                { id: 2, title: 'Product 2', description: 'Description 2', images: ['image2.jpg'] }
+            ]
+        };
 
-        // Wait for fetch to be called
-        await waitFor(() => {
-            expect(mockFetch).toHaveBeenCalledTimes(1);
-        }, { timeout: 5000 });
-        rerender(<Products />);
-        expect(screen.getByText('Product 1')).toBeInTheDocument();
-        expect(screen.getByText('Description 1')).toBeInTheDocument();
+        // Mock the useDataFetching hook to return data
+        (useDataFetching as jest.Mock).mockReturnValue({ loading: false, data: mockData });
+
+        const { getByText } = render(<Products />);
+        const product1Title = getByText('Product 1');
+        const product2Title = getByText('Product 2');
+
+        // Check if the product titles are rendered
+        expect(product1Title).toBeInTheDocument();
+        expect(product2Title).toBeInTheDocument();
     });
 });

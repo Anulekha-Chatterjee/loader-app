@@ -1,29 +1,38 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render } from '@testing-library/react';
 import Users from './Users';
 
-const mockFetch = jest.fn(() =>
-    Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve({ users: [{ id: 1, firstName: 'John', lastName: 'Doe', age: 30, gender: 'Male', email: 'john@example.com', phone: '1234567890' }] }),
-    })
-);
+jest.mock('../../Hooks/useDataFetching');
 
-(global as any).fetch = mockFetch;
+describe('Users Component', () => {
+  test('renders loading state correctly', () => {
+    // Mock the useDataFetching hook to return loading state
+    const mockDataFetching = jest.requireMock('../../Hooks/useDataFetching');
+    mockDataFetching.useDataFetching.mockReturnValue({ loading: true, data: null });
 
-describe('Users component', () => {
-    beforeEach(() => {
-        mockFetch.mockClear();
-    });
+    const { getAllByTestId } = render(<Users />);
+    const shimmerLoader = getAllByTestId('shimmer-row')[0];
 
-    xit('renders content correctly after loading', async () => {
-        const { getByText, findByText } = render(<Users />);
-        await waitFor(() => expect(mockFetch).toHaveBeenCalledTimes(1)); // Wait for fetch to be called
-        expect(getByText('John Doe')).toBeInTheDocument();
-        expect(getByText('Age: 30')).toBeInTheDocument();
-        expect(getByText('Gender: Male')).toBeInTheDocument();
-        expect(getByText('Email: john@example.com')).toBeInTheDocument();
-        expect(getByText('Phone: 1234567890')).toBeInTheDocument();
-    });
+    expect(shimmerLoader).toBeInTheDocument();
+  });
+
+  test('renders data correctly', () => {
+    const mockData = {
+      users: [
+        { id: 1, firstName: 'John', lastName: 'Doe', age: 30, gender: 'Male', email: 'john@example.com', phone: '1234567890' },
+        { id: 2, firstName: 'Jane', lastName: 'Doe', age: 25, gender: 'Female', email: 'jane@example.com', phone: '0987654321' }
+      ]
+    };
+
+    // Mock the useDataFetching hook to return data
+    const mockDataFetching = jest.requireMock('../../Hooks/useDataFetching');
+    mockDataFetching.useDataFetching.mockReturnValue({ loading: false, data: mockData });
+
+    const { getByText } = render(<Users />);
+    const userJohn = getByText('John Doe');
+    const userJane = getByText('Jane Doe');
+
+    expect(userJohn).toBeInTheDocument();
+    expect(userJane).toBeInTheDocument();
+  });
 });
