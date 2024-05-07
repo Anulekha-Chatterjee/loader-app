@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react';
 import ShimmerLoader from '../Common/Loader';
 import "./Users.css";
-import { fetchData } from '../../Services/api';
+import { useDataFetching } from '../../Hooks/useDataFetching';
 
 const Users = () => {
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null);
     const limit = 10;
-
-    useEffect(() => {
-        fetchData(`https://dummyjson.com/users?limit=${limit}`, setData, setLoading);
-    }, []);
+    const { loading, data } = useDataFetching({ apiUrl: `https://dummyjson.com/users?limit=${limit}` });
 
     const shimmerRowsPerLoader = 5;
 
