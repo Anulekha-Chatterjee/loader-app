@@ -6,7 +6,6 @@ const ShimmerLoader = ({ loading, shimmerRows, content, children }: any) => {
     const renderShimmer = () => {
         const shimmerRowsArray = [];
 
-        // Loop to generate shimmer rows
         for (let rowIndex = 0; rowIndex < shimmerRows; rowIndex++) {
             const shimmerCellsArray: any = [];
 
@@ -28,13 +27,12 @@ const ShimmerLoader = ({ loading, shimmerRows, content, children }: any) => {
         return shimmerRowsArray;
     };
 
-
+    //This method is to add the classname to each cell of a shimmer row in order to denote each row of data separately as a shimmer 
     const addClassNameToChild = (child: any, className: string, index: number): any => {
         if (React.isValidElement(child)) {
             const childWithProps = child as React.ReactElement<any, string | React.JSXElementConstructor<any>>;
             const isParent = childWithProps.type === 'div' && childWithProps.props.id === 'parent';
 
-            // Clone the child element with an additional class name
             const additionalClass = isParent ? '' : className;
             return React.cloneElement(childWithProps, {
                 className: additionalClass,
