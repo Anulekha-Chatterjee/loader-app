@@ -1,7 +1,13 @@
-import { useState, useEffect } from 'react';
 import ShimmerLoader from '../Common/Loader';
 import "./Products.css";
 import { useDataFetching } from '../../Hooks/useDataFetching';
+
+interface Product {
+    id: number;
+    title: string;
+    description: string;
+    images: string[];
+}
 
 const Products = () => {
     const limit: number = 10;
@@ -27,11 +33,11 @@ const Products = () => {
 
 
 
-const Content = ({ data }: { data: { products: any } }) => {
+const Content = ({ data }: { data: { products: Product[] } }) => {
     if (Array.isArray(data?.products)) {
         return (
             <div className="container">
-                {data?.products?.map((item: any) => (
+                {data?.products?.map((item: Product) => (
                     <div className="item" key={item.id}>
                         <img src={item.images[0]} alt={item.title} />
                         <div className='item-details'>

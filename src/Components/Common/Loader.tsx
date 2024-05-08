@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './Loader.css'
 
+interface ShimmerLoaderProps {
+    loading: boolean;
+    shimmerRows: number;
+    content: ReactNode;
+    children?: ReactNode;
+}
 
-const ShimmerLoader = ({ loading, shimmerRows, content, children }: any) => {
+const ShimmerLoader = ({ loading, shimmerRows, content, children }: ShimmerLoaderProps) => {
     const renderShimmer = () => {
         const shimmerRowsArray = [];
 

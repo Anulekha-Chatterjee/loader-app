@@ -10,9 +10,8 @@ describe('ShimmerLoader component', () => {
         render(
             <ShimmerLoader
                 loading={true}
-                shimmerRows={shimmerRows}
-                shimmerCellsPerRow={shimmerCellsPerRow}
-            >
+                shimmerRows={shimmerRows} content={undefined}          
+                >
                 <div id="parent">
                     <div>Child 1</div>
                     <div>Child 2</div>
@@ -30,7 +29,7 @@ describe('ShimmerLoader component', () => {
         const content = <div>Actual Content</div>;
 
         render(
-            <ShimmerLoader loading={false} content={content}>
+            <ShimmerLoader loading={false} content={content} shimmerRows={0}>
                 <div id="parent">
                     <div>Child 1</div>
                     <div>Child 2</div>

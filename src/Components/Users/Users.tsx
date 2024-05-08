@@ -2,6 +2,17 @@ import ShimmerLoader from '../Common/Loader';
 import "./Users.css";
 import { useDataFetching } from '../../Hooks/useDataFetching';
 
+interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    age: number;
+    gender: string;
+    email: string;
+    phone: string;
+}
+
+
 const Users = () => {
     const limit = 10;
     const { loading, data } = useDataFetching({ apiUrl: `https://dummyjson.com/users?limit=${limit}` });
@@ -28,11 +39,11 @@ const Users = () => {
 
 
 
-const Content = ({ data }: { data: { users: any } }) => {
+const Content = ({ data }: { data: { users: User[] } }) => {
     if (Array.isArray(data?.users)) {
         return (
             <div className="container">
-                {data?.users?.map((item: any) => (
+                {data?.users?.map((item: User) => (
                     <div key={item.id} className="user-info">
                         <h2 className="user-name">{item.firstName} {item.lastName}</h2>
                         <div className="user-detail">
